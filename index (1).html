@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sofia Damala</title>
+  <meta name="description" content="Sofia Damala — Fine artist based in Athens. Painting, mixed media, installation, digital arts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f4f2ee;
+      --ink: #1a1a1a;
+      --grey: #9a9a9a;
+      --serif: 'EB Garamond', Georgia, serif;
+      --mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 28px 48px;
+      background: var(--bg);
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--grey);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-burger { display: none; cursor: pointer; background: none; border: none; padding: 0; }
+    .nav-burger span { display: block; width: 22px; height: 1px; background: var(--ink); margin: 5px 0; }
+
+    /* ── INTRO ── */
+    #home {
+      padding: 160px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: end;
+      min-height: 100vh;
+    }
+
+    .intro-left {}
+
+    .intro-name {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+
+    .intro-name em {
+      font-style: italic;
+      display: block;
+    }
+
+    .intro-desc {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--grey);
+      letter-spacing: 0.06em;
+      line-height: 2;
+      text-transform: lowercase;
+    }
+
+    .intro-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding-bottom: 8px;
+    }
+
+    .intro-image {
+      width: 52%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(8%);
+    }
+
+    /* ── WORKS ── */
+    #works {
+      padding: 120px 48px;
+    }
+
+    .works-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 80px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+      padding-top: 20px;
+    }
+
+    .works-title {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      text-transform: lowercase;
+    }
+
+    .works-filters {
+      display: flex;
+      gap: 28px;
+    }
+
+    .filter-btn {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--grey);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-transform: lowercase;
+      padding: 0;
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+    .filter-btn:hover,
+    .filter-btn.active { color: var(--ink); }
+
+    /* Masonry-like asymmetric grid */
+    .works-grid {
+      display: none;
+    }
+    .works-grid.active {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      row-gap: 56px;
+    }
+
+    .work-item {
+      cursor: pointer;
+    }
+
+    /* Varied sizes for organic feel */
+    .work-item:nth-child(1)  { grid-column: 1 / 7; }
+    .work-item:nth-child(2)  { grid-column: 8 / 12; margin-top: 80px; }
+    .work-item:nth-child(3)  { grid-column: 2 / 6; }
+    .work-item:nth-child(4)  { grid-column: 6 / 13; }
+    .work-item:nth-child(5)  { grid-column: 1 / 5; margin-top: 40px; }
+    .work-item:nth-child(6)  { grid-column: 5 / 9; }
+    .work-item:nth-child(7)  { grid-column: 9 / 13; margin-top: 60px; }
+    .work-item:nth-child(8)  { grid-column: 3 / 8; }
+
+    .work-item img {
+      width: 100%;
+      display: block;
+      transition: opacity 0.3s;
+    }
+    .work-item:hover img { opacity: 0.82; }
+
+    .work-caption {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .work-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--ink);
+    }
+
+    .work-meta {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      color: var(--grey);
+      letter-spacing: 0.06em;
+      text-align: right;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 120px 48px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2px 1fr;
+      gap: 0 64px;
+      align-items: start;
+    }
+
+    .about-divider {
+      background: rgba(0,0,0,0.1);
+      height: 100%;
+      min-height: 200px;
+    }
+
+    .about-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      text-transform: lowercase;
+      margin-bottom: 40px;
+    }
+
+    .about-statement {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      line-height: 1.7;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+
+    .about-statement em { font-style: italic; }
+
+    .about-body {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: rgba(26,26,26,0.75);
+    }
+
+    .about-right { padding-top: 80px; }
+
+    .cv-block {
+      margin-bottom: 40px;
+    }
+
+    .cv-block-title {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--grey);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 16px;
+      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: rgba(26,26,26,0.8);
+    }
+
+    .cv-year {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      padding-top: 3px;
+    }
+
+    .cv-link {
+      display: inline-block;
+      margin-top: 32px;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.25);
+      padding-bottom: 2px;
+      transition: border-color 0.15s;
+      text-transform: lowercase;
+    }
+    .cv-link:hover { border-color: var(--ink); }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 120px 48px 100px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 0;
+    }
+
+    .contact-left {}
+
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      margin-bottom: 40px;
+    }
+
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.25);
+      padding-bottom: 3px;
+      transition: border-color 0.15s;
+    }
+    .contact-email:hover { border-color: var(--ink); }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    .contact-right a {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: color 0.15s;
+    }
+    .contact-right a:hover { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      color: var(--grey);
+      text-transform: lowercase;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(244,242,238,0.97);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 86vw;
+      max-height: 86vh;
+      cursor: default;
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-caption {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lightbox-caption .lc-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .lightbox-caption .lc-meta {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      color: var(--grey);
+      letter-spacing: 0.06em;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -32px;
+      right: 0;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      background: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+    }
+    .lightbox-close:hover { color: var(--ink); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 22px 28px; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); padding: 100px 40px; gap: 24px; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; }
+      .nav-burger { display: block; }
+
+      #home { grid-template-columns: 1fr; padding: 140px 28px 60px; min-height: auto; gap: 40px; }
+      .intro-right { justify-content: flex-start; }
+      .intro-image { width: 70%; }
+
+      #works, #about, #contact { padding: 80px 28px; }
+
+      .works-grid.active { grid-template-columns: 1fr 1fr; }
+      .work-item:nth-child(n) { grid-column: auto; margin-top: 0; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-divider { display: none; }
+      .about-right { padding-top: 0; }
+
+      #contact { grid-template-columns: 1fr; gap: 48px; }
+      .contact-right { align-items: flex-start; }
+
+      footer { padding: 20px 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .works-grid.active { grid-template-columns: 1fr; }
+      .works-filters { flex-wrap: wrap; gap: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">Sofia Damala</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#works" onclick="closeMenu()">works</a></li>
+      <li><a href="#about" onclick="closeMenu()">about</a></li>
+      <li><a href="#contact" onclick="closeMenu()">contact</a></li>
+    </ul>
+    <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- INTRO -->
+  <section id="home">
+    <div class="intro-left">
+      <h1 class="intro-name">
+        Sofia<br>
+        <em>Damala</em>
+      </h1>
+      <p class="intro-desc">
+        fine artist — athens<br>
+        painting · mixed media<br>
+        installation · digital arts
+      </p>
+    </div>
+    <div class="intro-right">
+      <img
+        class="intro-image"
+        src="https://static.wixstatic.com/media/35a4a0_8fbd958efcaa4547a62ad818ec196e3e~mv2.jpg/v1/fill/w_700,h_900,al_c,q_85/35a4a0_8fbd958efcaa4547a62ad818ec196e3e~mv2.jpg"
+        alt="Sofia Damala"
+      />
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-header">
+      <span class="works-title">selected works</span>
+      <div class="works-filters">
+        <button class="filter-btn active" onclick="showWorks('all', this)">all</button>
+        <button class="filter-btn" onclick="showWorks('painting', this)">painting</button>
+        <button class="filter-btn" onclick="showWorks('printmaking', this)">printmaking</button>
+        <button class="filter-btn" onclick="showWorks('installation', this)">installation</button>
+        <button class="filter-btn" onclick="showWorks('digital', this)">digital</button>
+      </div>
+    </div>
+
+    <!-- ALL -->
+    <div class="works-grid active" id="grid-all">
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg/v1/fit/w_1200,h_1600,q_90/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg','Untitled','Painting — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg/v1/fit/w_900,h_1200,q_85/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Painting<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg/v1/fit/w_1200,h_800,q_90/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg','Untitled','Painting — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg/v1/fit/w_900,h_600,q_85/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Painting<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png/v1/fit/w_1200,h_800,q_90/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png','Untitled','Digital Arts — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png/v1/fit/w_900,h_600,q_85/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Digital Arts<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg/v1/fit/w_1000,h_1400,q_90/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg','Untitled','Installation — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg/v1/fit/w_800,h_1100,q_85/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Installation<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg/v1/fit/w_1200,h_820,q_90/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg','Untitled','Painting — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg/v1/fit/w_900,h_620,q_85/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Painting<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_03a210f3a12f4031824417f503348857~mv2.png/v1/fit/w_1200,h_820,q_90/35a4a0_03a210f3a12f4031824417f503348857~mv2.png','Untitled','Printmaking — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_03a210f3a12f4031824417f503348857~mv2.png/v1/fit/w_900,h_620,q_85/35a4a0_03a210f3a12f4031824417f503348857~mv2.png" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Printmaking<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg/v1/fit/w_900,h_1100,q_90/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg','Untitled','Printmaking — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg/v1/fit/w_700,h_900,q_85/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Printmaking<br>edit year</span>
+        </div>
+      </div>
+
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg/v1/fit/w_1000,h_1100,q_90/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg','Untitled','Installation — edit year')">
+        <img src="https://static.wixstatic.com/media/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg/v1/fit/w_800,h_900,q_85/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg" alt="Artwork" loading="lazy" />
+        <div class="work-caption">
+          <span class="work-title">Untitled</span>
+          <span class="work-meta">Installation<br>edit year</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAINTING -->
+    <div class="works-grid" id="grid-painting">
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg/v1/fit/w_1200,h_1600,q_90/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg','Untitled','Painting')">
+        <img src="https://static.wixstatic.com/media/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg/v1/fit/w_900,h_1200,q_85/35a4a0_b5c494d39318494a98cb67dd15834efe~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Painting<br>edit year</span></div>
+      </div>
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg/v1/fit/w_1200,h_800,q_90/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg','Untitled','Painting')">
+        <img src="https://static.wixstatic.com/media/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg/v1/fit/w_900,h_600,q_85/35a4a0_a53d312a64f24566bc6e6ed64d0e34e2~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Painting<br>edit year</span></div>
+      </div>
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg/v1/fit/w_1200,h_820,q_90/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg','Untitled','Painting')">
+        <img src="https://static.wixstatic.com/media/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg/v1/fit/w_900,h_620,q_85/35a4a0_1ac17682fad4452d8a048ba75840d078~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Painting<br>edit year</span></div>
+      </div>
+    </div>
+
+    <!-- PRINTMAKING -->
+    <div class="works-grid" id="grid-printmaking">
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_03a210f3a12f4031824417f503348857~mv2.png/v1/fit/w_1200,h_820,q_90/35a4a0_03a210f3a12f4031824417f503348857~mv2.png','Untitled','Printmaking')">
+        <img src="https://static.wixstatic.com/media/35a4a0_03a210f3a12f4031824417f503348857~mv2.png/v1/fit/w_900,h_620,q_85/35a4a0_03a210f3a12f4031824417f503348857~mv2.png" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Printmaking<br>edit year</span></div>
+      </div>
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg/v1/fit/w_900,h_1100,q_90/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg','Untitled','Printmaking')">
+        <img src="https://static.wixstatic.com/media/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg/v1/fit/w_700,h_900,q_85/35a4a0_9b706eacdd224fe987f77de735c504f5~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Printmaking<br>edit year</span></div>
+      </div>
+    </div>
+
+    <!-- INSTALLATION -->
+    <div class="works-grid" id="grid-installation">
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg/v1/fit/w_1000,h_1400,q_90/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg','Untitled','Installation')">
+        <img src="https://static.wixstatic.com/media/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg/v1/fit/w_800,h_1100,q_85/35a4a0_b0ab1bd21f364d3d857441e50c0fc037~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Installation<br>edit year</span></div>
+      </div>
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg/v1/fit/w_1000,h_1100,q_90/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg','Untitled','Installation')">
+        <img src="https://static.wixstatic.com/media/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg/v1/fit/w_800,h_900,q_85/35a4a0_1722a754109a48ce9615c1db8a84c90f~mv2.jpg" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Installation<br>edit year</span></div>
+      </div>
+    </div>
+
+    <!-- DIGITAL -->
+    <div class="works-grid" id="grid-digital">
+      <div class="work-item" onclick="openLightbox('https://static.wixstatic.com/media/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png/v1/fit/w_1200,h_800,q_90/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png','Untitled','Digital Arts')">
+        <img src="https://static.wixstatic.com/media/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png/v1/fit/w_900,h_600,q_85/35a4a0_d4c1ff65f7e7427ba31c4d159419e7fd~mv2.png" alt="" loading="lazy" />
+        <div class="work-caption"><span class="work-title">Untitled</span><span class="work-meta">Digital Arts<br>edit year</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-left">
+        <p class="about-label">about</p>
+        <p class="about-statement">
+          Sofia Damala is an Athens-based artist working across <em>painting, mixed media, installation, video</em> and digital arts.
+        </p>
+        <p class="about-body">
+          Holder of an MA in Digital Arts, her practice explores the intersection of physical and digital space — combining conceptual research with sensory and emotional experience. Her work investigates the essence of form and synthesis, moving fluidly between traditional and digital media.
+          <br><br>
+          <!-- Πρόσθεσε εδώ το δικό σου artist statement -->
+        </p>
+      </div>
+
+      <div class="about-divider"></div>
+
+      <div class="about-right">
+        <div class="cv-block">
+          <p class="cv-block-title">education</p>
+          <div class="cv-entry">
+            <span class="cv-year">MA</span>
+            <span>Digital Arts — [University name]</span>
+          </div>
+          <div class="cv-entry">
+            <span class="cv-year">BFA</span>
+            <span>[Undergraduate degree]</span>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <p class="cv-block-title">selected exhibitions</p>
+          <div class="cv-entry">
+            <span class="cv-year">2024</span>
+            <span>[Exhibition title, Venue, City]</span>
+          </div>
+          <div class="cv-entry">
+            <span class="cv-year">2023</span>
+            <span>[Exhibition title, Venue, City]</span>
+          </div>
+          <div class="cv-entry">
+            <span class="cv-year">2022</span>
+            <span>[Exhibition title, Venue, City]</span>
+          </div>
+        </div>
+
+        <a href="https://drive.google.com/file/d/1W2eyka4xk7XaeKSTQVFx6rbk9QyW1HcS/view?usp=sharing" target="_blank" class="cv-link">download cv ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-left">
+      <p class="contact-label">contact</p>
+      <h2 class="contact-heading">Let's<br>connect</h2>
+      <a href="mailto:damalasofia@gmail.com" class="contact-email">damalasofia@gmail.com</a>
+    </div>
+    <div class="contact-right">
+      <a href="https://www.instagram.com/sofiadamala_visual.artist/" target="_blank">instagram</a>
+      <a href="https://www.facebook.com/Sofia-Damala-100466741375894/" target="_blank">facebook</a>
+      <a href="https://www.youtube.com/channel/UC1foXpbPcwhnqIJkaOpIYjw" target="_blank">youtube</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 sofia damala</span>
+    <span>athens, greece</span>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()">close</button>
+      <img id="lightboxImg" src="" alt="" />
+      <div class="lightbox-caption">
+        <span class="lc-title" id="lightboxTitle"></span>
+        <span class="lc-meta" id="lightboxMeta"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+
+    function showWorks(id, btn) {
+      document.querySelectorAll('.works-grid').forEach(g => g.classList.remove('active'));
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('grid-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function openLightbox(src, title, meta) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxTitle').textContent = title;
+      document.getElementById('lightboxMeta').textContent = meta;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
